@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="author" content="Martyn Smith - USGS NY WSC">
+	<link rel="copyright" href="license.txt">
+    <title>Long Island Depth to Water Viewer 2016</title>
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.28/esri/themes/calcite/dijit/calcite.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.28/esri/themes/calcite/esri/esri.css">
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.28/esri/css/esri.css"/>
+    <script src="https://js.arcgis.com/3.28/"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  </head>
+  <body>
+    
+    <div id="top-menu">
+        <div id="mobile-main-menu">
+            <span class="fa fa-bars" ></span>
+        </div>
+        <div class="title">
+            <a class='top-menu-brand hidden-xs' href="https://www.usgs.gov"><img src="usgs_logo.png" style="vertical-align: middle;"></a>
+            <span class="app-name">Long Island Depth to Water Viewer 2016</span><span class="app-name-mobile">Long Island Depth to Water Viewer 2016</span> 
+        </div>
+    </div>
+
+    <div id="main-menu">
+        <div class="main-menu-container scrollable">
+            <div class="menu-content"> 
+                <div class="scrollable-content">
+
+                    <div class="accordion" id="accordion">
+                        <div class="card mb-0 sidebar-panel">
+                            <div class="card-header" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" href="#layersPanel">
+                                <a class="card-title">
+                                    Legend:
+                                </a>
+                            </div>
+                            <img src="Legend.png" alt="Legend.png">
+
+                            <div class="card-header" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" href="#layersPanel">
+                                <a class="card-title" >
+                                    Instructions
+                                </a>
+                            </div>
+                            <br>
+                            To use the map, click on a Monitoring Well to get a measured depth to water, or click elsewhere on the map to get an estimated depth to water.
+                            <br><br>
+                            <img src="instruc.png" alt="instruc.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="search"></div>
+    <div id="mapDiv">
+    </div>
+
+  </body>
+</html>

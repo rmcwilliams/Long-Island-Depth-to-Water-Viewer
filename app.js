@@ -30,8 +30,8 @@ $(document).ready(function () {
         }, domConstruct.create("div"));
 
         map = new Map("mapDiv", {
-            center: [-98.258, 38.236],
-            zoom: 7,
+            center: [-73.1350, 40.7891],
+            zoom: 9,
             infoWindow: popup
         });
         

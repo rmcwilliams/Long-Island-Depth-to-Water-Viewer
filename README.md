@@ -1,6 +1,6 @@
-# Long-Island-Depth-to-Water-Viewer-2016
-Updated from the 2013 version to include the new data and have a better design.
+# Long-Island-Depth-to-Water-Viewer
+Combined all older versions into one application that allows you to switch between years, also a better design.
 
-https://rmcwilliams.github.io/Long-Island-Depth-to-Water-Viewer-2016/
+https://rmcwilliams.github.io/Long-Island-Depth-to-Water-Viewer/
 
 Credit to marsmith for the design

@@ -216,6 +216,8 @@ $(document).ready(function () {
     });
 
     var map;
+    var search;
+    var basemapGallery;
 
     require([
     "esri/map",
@@ -231,10 +233,18 @@ $(document).ready(function () {
     "dojo/dom-construct",
     "esri/symbols/SimpleFillSymbol",
     "esri/symbols/SimpleLineSymbol",
+    "esri/dijit/BasemapGallery",
+    "esri/arcgis/utils",
+    "dojo/parser",
+    "dijit/layout/BorderContainer", 
+    "dijit/layout/ContentPane", 
+    "dijit/TitlePane",
     "dojo/domReady!"
     ],
     function (Map, Search, ArcGISDynamicMapServiceLayer, ImageParameters, InfoTemplate, IdentifyTask,
-    IdentifyParameters, Popup, arrayUtils, Color, domConstruct, SimpleFillSymbol, SimpleLineSymbol) {
+    IdentifyParameters, Popup, arrayUtils, Color, domConstruct, SimpleFillSymbol, SimpleLineSymbol, BasemapGallery, arcgisUtils,
+    parser) {
+        parser.parse();
         var popup = new Popup({
             fillSymbol: new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
                 new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
@@ -247,10 +257,21 @@ $(document).ready(function () {
             infoWindow: popup
         });
 
-        var search = new Search({
+        search = new Search({
             map: map
         }, "search");
         search.startup();
+
+        //add the basemap gallery, in this case we'll display maps from ArcGIS.com including bing maps
+      basemapGallery = new BasemapGallery({
+        showArcGISBasemaps: true,
+        map: map
+      }, "basemapGallery");
+      basemapGallery.startup();
+      
+      basemapGallery.on("error", function(msg) {
+        console.log("basemap gallery error:  ", msg);
+      });
 
         populateMap(initYear, map, ArcGISDynamicMapServiceLayer, ImageParameters, InfoTemplate, IdentifyTask,
         IdentifyParameters, Popup, arrayUtils, Color, domConstruct, SimpleFillSymbol, SimpleLineSymbol);
@@ -279,11 +300,17 @@ $(document).ready(function () {
                 "dojo/dom-construct",
                 "esri/symbols/SimpleFillSymbol",
                 "esri/symbols/SimpleLineSymbol",
+                "esri/arcgis/utils",
+                "dojo/parser",
+                "dijit/layout/BorderContainer", 
+                "dijit/layout/ContentPane", 
+                "dijit/TitlePane",
                 "dojo/domReady!"
             ],
             function (Map, ArcGISDynamicMapServiceLayer, ImageParameters, InfoTemplate, IdentifyTask,
-                IdentifyParameters, Popup, arrayUtils, Color, domConstruct, SimpleFillSymbol, SimpleLineSymbol) {
-                
+                IdentifyParameters, Popup, arrayUtils, Color, domConstruct, SimpleFillSymbol, SimpleLineSymbol, arcgisUtils,
+                parser) {
+                parser.parse();
                 map.destroy();
 
                 var popup = new Popup({
@@ -297,6 +324,9 @@ $(document).ready(function () {
                     zoom: 9,
                     infoWindow: popup
                 });
+
+                search.map = map;
+                basemapGallery.map = map;
 
                 populateMap(val, map, ArcGISDynamicMapServiceLayer, ImageParameters, InfoTemplate, IdentifyTask,
                     IdentifyParameters, Popup, arrayUtils, Color, domConstruct, SimpleFillSymbol, SimpleLineSymbol);

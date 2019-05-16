@@ -17,66 +17,87 @@
     <link rel="stylesheet" href="./styles/main.css">
     <link rel="stylesheet" href="https://js.arcgis.com/3.28/esri/css/esri.css"/>
     <link rel="stylesheet" type="text/css" href="styles/common.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.28/dijit/themes/claro/claro.css">    
     <script src="https://js.arcgis.com/3.28/"></script>
     <script type="text/javascript" src="app.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   </head>
-  <body>
-    
-    <div id="top-menu">
-        <div id="mobile-main-menu">
-            <span class="fa fa-bars" ></span>
-        </div>
-        <div class="title">
-            <a class='top-menu-brand hidden-xs' href="https://www.usgs.gov"><img src="usgs_logo.png" style="vertical-align: middle;"></a>
-            <span class="app-name">Long Island Depth to Water Viewer</span><span class="app-name-mobile">Long Island Depth to Water Viewer</span> 
-        </div>
-        <div id="yearDropdown" style='float:right;padding-top:18px;padding-right:18px;'>
-                <select id="mySelect">
-                    <option value="2016">2016</option>
-                    <option value="2013">2013</option>
-                    <option value="2010">2010</option>
-                    <option value="2006">2006</option>
-                </select>
-        </div>
-    </div>
 
-    <div id="main-menu" style="padding-bottom:117.6px;">
-        <div class="main-menu-container scrollable">
-            <div class="menu-content"> 
-                <div class="scrollable-content">
 
-                    <div class="accordion" id="accordion">
-                        <div class="card mb-0 sidebar-panel">
-                            <div class="card-header" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" href="#layersPanel">
-                                <a class="card-title">
-                                    Legend:
-                                </a>
+
+
+  <body class="claro"> 
+        <div id="top-menu">
+                <div id="mobile-main-menu">
+                    <span class="fa fa-bars" ></span>
+                </div>
+                <div class="title">
+                    <a class='top-menu-brand hidden-xs' href="https://www.usgs.gov"><img src="usgs_logo.png" style="vertical-align: middle;"></a>
+                    <span class="app-name">Long Island Depth to Water Viewer</span><span class="app-name-mobile">Long Island Depth to Water Viewer</span> 
+                </div>
+                <div id="yearDropdown" style='float:right;padding-top:18px;padding-right:18px;'>
+                        <select id="mySelect">
+                            <option value="2016">2016</option>
+                            <option value="2013">2013</option>
+                            <option value="2010">2010</option>
+                            <option value="2006">2006</option>
+                        </select>
+                </div>
+            </div>
+        
+            <div id="main-menu" style="padding-bottom:117.6px;">
+                <div class="main-menu-container scrollable">
+                    <div class="menu-content"> 
+                        <div class="scrollable-content">
+        
+                            <div class="accordion" id="accordion">
+                                <div class="card mb-0 sidebar-panel">
+                                    <div class="card-header" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" href="#layersPanel">
+                                        <a class="card-title">
+                                            Legend:
+                                        </a>
+                                    </div>
+                                    <img src="Legend.png" alt="Legend.png">
+        
+                                    <div class="card-header" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" href="#layersPanel">
+                                        <a class="card-title" >
+                                            Instructions
+                                        </a>
+                                    </div>
+                                    <br>
+                                    To use the map, click on a Monitoring Well to get a measured depth to water, or click elsewhere on the map to get an estimated depth to water.
+                                    <br><br>
+                                    <img src="instruc.png" alt="instruc.png">
+                                </div>
                             </div>
-                            <img src="Legend.png" alt="Legend.png">
-
-                            <div class="card-header" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" href="#layersPanel">
-                                <a class="card-title" >
-                                    Instructions
-                                </a>
-                            </div>
-                            <br>
-                            To use the map, click on a Monitoring Well to get a measured depth to water, or click elsewhere on the map to get an estimated depth to water.
-                            <br><br>
-                            <img src="instruc.png" alt="instruc.png">
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div id="search"></div>
+        <div data-dojo-type="dijit/layout/BorderContainer" 
+             data-dojo-props="design:'headline', gutters:false" 
+             style="width:100%;height:100%;margin:0;">
+          <div id="mapDiv" 
+               data-dojo-type="dijit/layout/ContentPane" 
+               data-dojo-props="region:'center'" 
+               style="padding-bottom:59px;">
+            <div style="position:fixed; right:10px; top:120px; z-Index:999;">
+              <div data-dojo-type="dijit/TitlePane" 
+                   data-dojo-props="title:'<small>Switch Basemap</small>', open:false">
+                <div data-dojo-type="dijit/layout/ContentPane" style="width:380px; height:280px; overflow:auto;">
+                  <div id="basemapGallery"></div>
+                </div>
+              </div>
+            </div>
+      
+          </div>
         </div>
-    </div>
 
 
-    <div id="search"></div>
-    <div id="mapDiv" style="padding-bottom:117.6px;"></div>
-
-    	<!-- BEGIN USGS Footer Template -->
-	<div id="usgsfooter">
+<!-- BEGIN USGS Footer Template -->
+<div id="usgsfooter">
 
 		<div class="navbar navbar-inverse navbar-fixed-bottom visible-tablet-mobile" role="navigation">
 			<div class="navbar-header" style="width:100%;">
@@ -124,6 +145,5 @@
 		</div>
 	</div>
 	<!-- END USGS Footer Template -->
-
-  </body>
+      </body>
 </html>

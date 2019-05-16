@@ -465,7 +465,7 @@ select:not([multiple]) {
     }
 
     #mapDiv {
-      padding-bottom:64px !important;
+      padding-bottom:32px !important;
     }
   
     .app-name {
@@ -474,7 +474,7 @@ select:not([multiple]) {
   
     .app-name-mobile {
       display: inline;
-      font-size:small;
+      font-size:smaller;
     }
   
   }

@@ -174,7 +174,7 @@ $(document).ready(function () {
                         //fix formatting -- most values have 2 decimal places but some have more to cut to two
                         var calcDTW = parseFloat(feature.attributes.DTW_Frm_MP).toFixed(2).toString();
                         console.log("calcDTW: ", calcDTW);
-                        var template = new esri.InfoTemplate("Results", "${Station_Na} <br/> <a href='${HYPERLINK}' target='_blank'>NWIS web link</a> <br/><br/> Measured depth to water (2016), in feet: " + calcDTW);							
+                        var template = new esri.InfoTemplate("Results", "${Station_Na} <br/> <a href='${HYPERLINK}' target='_blank'>NWIS web link</a> <br/><br/> Measured depth to water (" + year + "), in feet: " + calcDTW);							
                         feature.setInfoTemplate(template);
                         
                     } else if (result.layerId == 17 || result.layerId == 3 || result.layerId == 2) {

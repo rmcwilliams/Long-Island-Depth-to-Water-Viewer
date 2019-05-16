@@ -89,7 +89,7 @@ $(document).ready(function () {
         //I want layers 5,4, and 3 to be visible
         if (year == "2016") {
             imageParameters.layerIds = [14,16];
-        } else if (year == "2013" || year == "2010") {
+        } else if (year == "2013" || year == "2010" || year == "2006") {
             imageParameters.layerIds = [0,2];
         }
         imageParameters.layerOption = ImageParameters.LAYER_OPTION_SHOW;
@@ -113,6 +113,10 @@ $(document).ready(function () {
             dynamicMapServiceLayer = new ArcGISDynamicMapServiceLayer("https://www.sciencebase.gov/arcgis/rest/services/Catalog/56b3b8b2e4b0cc79997fb3a8/MapServer",
             {"imageParameters": imageParameters,
             "opacity": 0.7});
+        } else if (year == "2006") {
+            dynamicMapServiceLayer = new ArcGISDynamicMapServiceLayer("https://www.sciencebase.gov/arcgis/rest/services/Catalog/56b3b969e4b0cc79997fb3b4/MapServer",
+            {"imageParameters": imageParameters,
+            "opacity": 0.7});
         }
 
 
@@ -129,6 +133,8 @@ $(document).ready(function () {
 
             } else if (year == "2010") {
                 identifyTask = new IdentifyTask("https://www.sciencebase.gov/arcgis/rest/services/Catalog/56b3b8b2e4b0cc79997fb3a8/MapServer");
+            } else if (year == "2006") {
+                identifyTask = new IdentifyTask("https://www.sciencebase.gov/arcgis/rest/services/Catalog/56b3b969e4b0cc79997fb3b4/MapServer");
             }
 
             identifyParams = new IdentifyParameters();
@@ -136,7 +142,7 @@ $(document).ready(function () {
             identifyParams.returnGeometry = true;
             if (year == "2016") {
                 identifyParams.layerIds = [14, 16];
-            } else if (year == "2013" || year == "2010") {
+            } else if (year == "2013" || year == "2010" || year == "2006") {
                 identifyParams.layerIds = [0, 2];
             }
             identifyParams.layerOption = IdentifyParameters.LAYER_OPTION_ALL;
@@ -237,7 +243,8 @@ $(document).ready(function () {
     $('#yearDropdown').change(
         function() {
             var val = $('#yearDropdown option:selected').val();
-    
+            var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?year=' + val;
+            window.history.pushState({ path: newurl }, '', newurl);
             //clear map completely
 
             map.removeAllLayers();

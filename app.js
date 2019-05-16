@@ -172,9 +172,26 @@ $(document).ready(function () {
                     if (result.layerId == 15 || result.layerId == 1 || result.layerId == 0) {
                             
                         //fix formatting -- most values have 2 decimal places but some have more to cut to two
-                        var calcDTW = parseFloat(feature.attributes.DTW_Frm_MP).toFixed(2).toString();
+                        var calcDTW;
+                        if (year == "2006") {
+                            calcDTW = parseFloat(feature.attributes.DTWFROMMP).toFixed(2).toString();
+                        } else if (year == "2010") {
+                            calcDTW = parseFloat(feature.attributes.DTW_CALC).toFixed(2).toString();
+                        } else {
+                            calcDTW = parseFloat(feature.attributes.DTW_Frm_MP).toFixed(2).toString();
+                        }
                         console.log("calcDTW: ", calcDTW);
-                        var template = new esri.InfoTemplate("Results", "${Station_Na} <br/> <a href='${HYPERLINK}' target='_blank'>NWIS web link</a> <br/><br/> Measured depth to water (" + year + "), in feet: " + calcDTW);							
+                        var template;
+                        if (year == "2006") {
+                            template = new esri.InfoTemplate("Results", "${STATION} <br/> <a href='${NWIS_WEB}' target='_blank'>NWIS web link</a> <br/><br/> Measured depth to water (" + year + "), in feet: " + calcDTW);							
+                        } else if (year == "2010") {
+                            template = new esri.InfoTemplate("Results", "${SiteID} <br/> <a href='${WEBLINK}' target='_blank'>NWIS web link</a> <br/><br/> Measured depth to water (" + year + "), in feet: " + calcDTW);							
+
+                        } else if (year == "2013") {
+                            template = new esri.InfoTemplate("Results", "${Station_Name} <br/> <a href='${HYPERLINK}' target='_blank'>NWIS web link</a> <br/><br/> Measured depth to water (" + year + "), in feet: " + calcDTW);							
+                        } else if (year == "2016") {
+                            template = new esri.InfoTemplate("Results", "${Station_Na} <br/> <a href='${HYPERLINK}' target='_blank'>NWIS web link</a> <br/><br/> Measured depth to water (" + year + "), in feet: " + calcDTW);							
+                        }
                         feature.setInfoTemplate(template);
                         
                     } else if (result.layerId == 17 || result.layerId == 3 || result.layerId == 2) {
@@ -223,7 +240,7 @@ $(document).ready(function () {
                 new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
                 new Color([255, 0, 0]), 2), new Color([255, 255, 0, 0.25]))
         }, domConstruct.create("div"));
-    
+
         map = new Map("mapDiv", {
             center: [-73.1350, 40.7891],
             zoom: 9,
@@ -245,18 +262,18 @@ $(document).ready(function () {
             var val = $('#yearDropdown option:selected').val();
             var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?year=' + val;
             window.history.pushState({ path: newurl }, '', newurl);
-            //clear map completely
 
-            map.removeAllLayers();
 
             
 
             require([
+                "esri/map",
                 "esri/layers/ArcGISDynamicMapServiceLayer",
                 "esri/layers/ImageParameters",
                 "esri/InfoTemplate",
                 "esri/tasks/IdentifyTask",
                 "esri/tasks/IdentifyParameters",
+                "esri/dijit/Popup",
                 "dojo/_base/array",
                 "esri/Color",
                 "dojo/dom-construct",
@@ -264,10 +281,25 @@ $(document).ready(function () {
                 "esri/symbols/SimpleLineSymbol",
                 "dojo/domReady!"
             ],
-            function (ArcGISDynamicMapServiceLayer, ImageParameters, InfoTemplate, IdentifyTask,
-                IdentifyParameters, arrayUtils, Color, domConstruct, SimpleFillSymbol, SimpleLineSymbol) {
+            function (Map, ArcGISDynamicMapServiceLayer, ImageParameters, InfoTemplate, IdentifyTask,
+                IdentifyParameters, Popup, arrayUtils, Color, domConstruct, SimpleFillSymbol, SimpleLineSymbol) {
+                
+                map.destroy();
+
+                var popup = new Popup({
+                    fillSymbol: new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+                        new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+                        new Color([255, 0, 0]), 2), new Color([255, 255, 0, 0.25]))
+                }, domConstruct.create("div"));
+    
+                map = new Map("mapDiv", {
+                    center: [-73.1350, 40.7891],
+                    zoom: 9,
+                    infoWindow: popup
+                });
+
                 populateMap(val, map, ArcGISDynamicMapServiceLayer, ImageParameters, InfoTemplate, IdentifyTask,
-                    IdentifyParameters, arrayUtils, Color, domConstruct, SimpleFillSymbol, SimpleLineSymbol);
+                    IdentifyParameters, Popup, arrayUtils, Color, domConstruct, SimpleFillSymbol, SimpleLineSymbol);
             });
         }
     );
